@@ -6,7 +6,7 @@ exports.data = {
 
 exports.render = ({ title, content }) => {
   return html` <article>
-    <h3>${title}</h3>
+    <h2>${title}</h2>
     ${content}
   </article>`;
 };

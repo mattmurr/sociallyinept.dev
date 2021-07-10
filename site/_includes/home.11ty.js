@@ -18,7 +18,7 @@ const posts = (posts) => {
 exports.render = function ({ title, content, collections }) {
   return html` <!DOCTYPE html>
     ${content}
-    <h3>Links</h3>
+    <h2>Links</h2>
     <ul>
       <li><a href="https://github.com/mattmurr">GitHub</a></li>
       <li><a href="https://twitter.com/mattmurr__">Twitter</a></li>
@@ -26,7 +26,7 @@ exports.render = function ({ title, content, collections }) {
       <li><a href="mailto:mattmurr.uk@gmail.com">Mail</a></li>
     </ul>
 
-    <h3>Posts</h3>
+    <h2>Posts</h2>
     <ul>
       ${posts(collections.post)}
     </ul>`;

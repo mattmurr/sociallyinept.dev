@@ -6,12 +6,23 @@ exports.render = function ({ content }) {
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css" />
+        <meta
+          name="description"
+          content="Blog about Software Engineering, Cloud, Unix and various other tech"
+        />
+
         <link
+          defer
+          rel="stylesheet"
+          href="https://fonts.xz.style/serve/inter.css"
+        />
+        <link
+          defer
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
         />
         <link
+          defer
           href="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/themes/prism-tomorrow.css"
           rel="stylesheet"
         />
