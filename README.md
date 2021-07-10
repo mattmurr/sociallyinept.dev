@@ -1,14 +1,17 @@
-# Welcome to your CDK TypeScript project!
+# Source for [my blog](https://compti.me)
 
-This is a blank project for TypeScript development with CDK.
+It's easy to repurpose this repository for your own AWS hosted static site, just
+replace the contents of `site/` with your own.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+Here's a blog post about this repository:
+[https://compti.me/posts/hosting-my-static-site-with-aws/](https://compti.me/posts/hosting-my-static-site-with-aws/)
 
 ## Useful commands
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+- `npm run build` build static site with eleventy
+- `npm run dev` eleventy development server
+- `npm run test` perform the jest unit tests
+- `cdk deploy` deploy this stack to your default AWS account/region
+- `cdk bootstrap` bootstrap the AWS environment
+- `cdk diff` compare deployed stack with current state
+- `cdk synth` emits the synthesized CloudFormation template

@@ -6,7 +6,7 @@
   },
   "scripts": {
     "build": "npx eleventy",
-    "watch": "npx eleventy --serve",
+    "dev": "npx eleventy --serve",
     "test": "jest",
     "cdk": "cdk"
   },
