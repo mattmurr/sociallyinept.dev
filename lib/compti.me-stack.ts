@@ -15,7 +15,7 @@ export class ComptiMeStack extends cdk.Stack {
     });
 
     new s3deploy.BucketDeployment(this, "DeployWithInvalidation", {
-      sources: [s3deploy.Source.asset("./site/public")],
+      sources: [s3deploy.Source.asset("./site/output")],
       destinationBucket: bucket,
       // Don't retain objects in the bucket
       retainOnDelete: false,

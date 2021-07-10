@@ -5,15 +5,18 @@
     "compti.me": "bin/compti.me.js"
   },
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "npx eleventy",
+    "watch": "npx eleventy --serve",
     "test": "jest",
     "cdk": "cdk"
   },
   "devDependencies": {
+    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.1",
     "@aws-cdk/assert": "1.112.0",
     "@aws-cdk/aws-s3": "^1.112.0",
     "@aws-cdk/aws-s3-deployment": "^1.112.0",
+    "@exampledev/new.css": "^1.1.3",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
     "aws-cdk": "1.112.0",
