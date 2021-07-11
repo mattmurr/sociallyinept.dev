@@ -1,6 +1,7 @@
 *.js
 !.eleventy.js
 !site/**/*.js
+!functions/*.js
 !jest.config.js
 *.d.ts
 node_modules
@@ -11,3 +12,5 @@ cdk.out
 
 # Eleventy output
 site/output/
+
+cdk.context.json

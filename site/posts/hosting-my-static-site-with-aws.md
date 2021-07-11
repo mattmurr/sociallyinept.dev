@@ -7,36 +7,41 @@ date: 2021-07-10
 
 The CDK stack is based on [aws-cdk-examples/static-site](https://github.com/aws-samples/aws-cdk-examples/blob/master/typescript/static-site/static-site.ts)
 
-Set up our project directory with CDK
+Set up the project directory with CDK
 
 ```shell
-mkdir {my-site}
-cd my-site
+mkdir compti.me
+cd compti.me
 cdk init --language=typescript
+```
+
+`cdk init` has created the compti.me-stack.ts file in `lib/` and is used to
+define the infrastructure.
+
+These modules have the constructors we need for using S3
+
+```shell
 npm i --save-dev @aws-cdk/aws-s3 @aws-cdk/aws-s3-deployment
 ```
 
-`cdk init` has created a {my-site}-stack.ts file for us in `lib/` this file is
-used to define our infrastructure.
-
-Import our installed modules at the top of our \*-stack.ts:
+Imported at the top of compti.me-stack.ts:
 
 ```ts
 import * as s3 from "@aws-cdk/aws-s3";
 import * as s3deploy from "@aws-cdk/aws-s3-deployment";
 ```
 
-Inside the constructor block we must define the bucket where we will store our
-static website:
+Define the bucket and deployment within the constructor block, along with the path
+to my static site assets
 
 ```ts
-export class MySiteStack extends cdk.Stack {
+export class ComptiMeStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const bucket = new s3.Bucket(this, "Bucket", {
       // Bucket name must be globally unique
-      bucketName: "my-site-bucket",
+      bucketName: "compti.me",
 
       websiteIndexDocument: "index.html",
       publicReadAccess: true,
@@ -46,8 +51,8 @@ export class MySiteStack extends cdk.Stack {
     });
 
     new s3deploy.BucketDeployment(this, "BucketDeploy", {
-      // Where we will source our site files from locally
-      sources: [s3deploy.Source.asset("./site")],
+      // Source our site files from `./site/output` dir
+      sources: [s3deploy.Source.asset("./site/output")],
 
       // References the bucket we defined above
       destinationBucket: bucket,
@@ -55,16 +60,15 @@ export class MySiteStack extends cdk.Stack {
       retainOnDelete: false,
     });
 
-    // Print out our publicly accessible bucket URL
+    // Print the publicly accessible bucket URL
     new cdk.CfnOutput(this, "BucketURL", { value: bucket.bucketWebsiteUrl });
   }
 }
 ```
 
-Create the directory for the static site files (this directory should be referenced
-in the \*-stack.ts file in the `s3deploy.BucketDeployment` sources):
+Create the directory for the static site assets as referenced in `s3deploy.BucketDeployment`:
 
-Place your site files in here, for now I've created a basic `index.html`:
+I've created a basic `index.html` in that directory:
 
 ```html
 <!DOCTYPE html>
@@ -75,13 +79,43 @@ Place your site files in here, for now I've created a basic `index.html`:
 </html>
 ```
 
-Now we can prepare to deploy, `cdk synth` _Synthesizes and prints the CloudFormation
-template for this stack_. Should hopefully display any errors.
+`cdk bootstrap` is necessary as we are placing assets in an S3 bucket: [Bootstrapping](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html)
 
-We must also run `cdk bootstrap` as we are using placing assets in an S3 bucket,
-see: [Bootstrapping](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html)
+```shell
+cdk synth
+cdk bootstrap
+cdk deploy
+```
 
-Finally `cdk deploy` will deploy our cloudformation stack and begin provisioning
-the infrastructure in AWS.
+`cdk deploy` will deploy our CloudFormation stack and provision the infrastructure
+in AWS.
 
-## Part 2 - Setting up CloudFront and Route53
+The Public URL is printed out in the terminal
+
+![BucketURL](/images/bucket-url.png)
+
+I can access this in my browser
+![Hello From S3!](/images/hello-from-s3.png)
+
+## Part 2 - Setting up CloudFront
+
+Now I want to have my site served with HTTPS, this is possible by adding a CloudFront
+distribution and ACM certificate
+
+Install the following modules:
+
+```shell
+npm i --save-dev @aws-cdk/aws-certificatemanager @aws-cdk/aws-cloudfront @aws-cdk/aws-route53 @aws-cdk/aws-route53-targets @aws-cdk/aws-iam
+```
+
+Note: I have already transferred my compti.me domain to Route53
+
+Add the following imports to compti.me-stack.ts:
+
+```ts
+import * as cloudfront from "@aws-cdk/aws-cloudfront";
+import * as acm from "@aws-cdk/aws-certificatemanager";
+import * as route53 from "@aws-cdk/aws-route53";
+import * as route53targets from "@aws-cdk/aws-route53-targets";
+import * as iam from "@aws-cdk/aws-iam";
+```

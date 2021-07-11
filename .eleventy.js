@@ -8,6 +8,8 @@ module.exports = function (eleventyConfig) {
     DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED)
   );
 
+  eleventyConfig.addPassthroughCopy("site/images");
+
   return {
     dir: {
       input: "site",

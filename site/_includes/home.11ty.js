@@ -16,8 +16,7 @@ const posts = (posts) => {
 };
 
 exports.render = function ({ title, content, collections }) {
-  return html` <!DOCTYPE html>
-    ${content}
+  return html` ${content}
     <h2>Links</h2>
     <ul>
       <li><a href="https://github.com/mattmurr">GitHub</a></li>
