@@ -92,10 +92,11 @@ in AWS.
 
 The Public URL is printed out in the terminal
 
-![BucketURL](/assets/images/bucket-url.png)
+{% image "./site/img/bucket-url.png", "BucketURL" %}
 
 I can access this in my browser
-![Hello From S3!](/assets/images/hello-from-s3.png)
+
+{% image "./site/img/hello-from-s3.png", "Hello From S3!" %}
 
 ## Part 2 - Setting up CloudFront
 

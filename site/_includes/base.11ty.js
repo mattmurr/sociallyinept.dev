@@ -42,6 +42,11 @@ exports.render = function ({ content, page }) {
           rel="stylesheet"
         />
       </head>
+      <style>
+        img {
+          height: auto;
+        }
+      </style>
       <body>
         <header>
           <a href="/"><h1>compti.me</h1></a>

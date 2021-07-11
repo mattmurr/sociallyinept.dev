@@ -5,13 +5,14 @@
     "compti.me": "bin/compti.me.js"
   },
   "scripts": {
-    "build": "npx eleventy",
+    "build": "rm -rf site/output && npx eleventy",
     "dev": "npx eleventy --serve",
     "deploy": "npm run build && npx cdk deploy",
     "test": "jest"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy-img": "^0.9.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.1",
     "@aws-cdk/assert": "1.112.0",
     "@aws-cdk/aws-certificatemanager": "^1.112.0",
