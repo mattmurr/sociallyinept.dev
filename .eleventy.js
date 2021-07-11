@@ -8,7 +8,7 @@ module.exports = function (eleventyConfig) {
     DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED)
   );
 
-  eleventyConfig.addPassthroughCopy("site/images");
+  eleventyConfig.addPassthroughCopy("site/assets");
 
   return {
     dir: {
