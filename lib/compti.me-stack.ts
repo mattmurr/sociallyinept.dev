@@ -124,8 +124,8 @@ export class ComptiMeStack extends cdk.Stack {
       }
     );
 
-    new cdk.CfnOutput(this, "DistributionId", {
-      value: distribution.distributionId,
+    new cdk.CfnOutput(this, "DistributionDomainName", {
+      value: distribution.domainName,
     });
 
     new s3deploy.BucketDeployment(this, "DeployWithInvalidation", {

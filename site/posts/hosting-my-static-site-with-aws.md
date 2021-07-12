@@ -42,8 +42,8 @@ export class ComptiMeStack extends cdk.Stack {
     const bucket = new s3.Bucket(this, "Bucket", {
       // Bucket name must be globally unique
       bucketName: "compti.me",
-
       websiteIndexDocument: "index.html",
+
       publicReadAccess: true,
 
       // Delete the bucket when running `cdk destroy`
@@ -54,9 +54,10 @@ export class ComptiMeStack extends cdk.Stack {
       // Source our site files from `./site/output` dir
       sources: [s3deploy.Source.asset("./site/output")],
 
-      // References the bucket we defined above
+      // References the bucket defined above
       destinationBucket: bucket,
 
+      // Don't retain objects in the bucket
       retainOnDelete: false,
     });
 
@@ -100,8 +101,7 @@ I can access this in my browser
 
 ## Part 2 - Setting up CloudFront
 
-Now I want to have my site served with HTTPS, this is possible by adding a CloudFront
-distribution and ACM certificate
+Serving the site via a CloudFront distribution promises a variety of benefits
 
 Install the following modules:
 
@@ -109,14 +109,117 @@ Install the following modules:
 npm i --save-dev @aws-cdk/aws-certificatemanager @aws-cdk/aws-cloudfront @aws-cdk/aws-route53 @aws-cdk/aws-route53-targets @aws-cdk/aws-iam
 ```
 
-Note: I have already transferred my compti.me domain to Route53
-
-Add the following imports to compti.me-stack.ts:
+Additional imports for compti.me-stack.ts:
 
 ```ts
 import * as cloudfront from "@aws-cdk/aws-cloudfront";
-import * as acm from "@aws-cdk/aws-certificatemanager";
-import * as route53 from "@aws-cdk/aws-route53";
-import * as route53targets from "@aws-cdk/aws-route53-targets";
 import * as iam from "@aws-cdk/aws-iam";
 ```
+
+Modify the bucket to block read access:
+
+```ts
+const bucket = new s3.Bucket(this, "Bucket", {
+  bucketName: "compti.me",
+  websiteIndexDocument: "index.html",
+
+  // Block access
+  publicReadAccess: false,
+  blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+
+  // Delete the bucket when running cdk destroy
+  removalPolicy: cdk.RemovalPolicy.DESTROY,
+});
+```
+
+Configure [CloudFront OAI (Origin Access Identity)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html):
+
+```ts
+const cloudfrontOAI = new cloudfront.OriginAccessIdentity(
+  this,
+  "cloudfront-OAI",
+  {
+    comment: `OAI for ${id}`,
+  }
+);
+```
+
+Allow `s3:GetObject` for all objects in the S3 bucket for the CloudFrontOAI user:
+
+```ts
+bucket.addToResourcePolicy(
+  new iam.PolicyStatement({
+    actions: ["s3:GetObject"],
+    resources: [bucket.arnForObjects("*")],
+    principals: [
+      new iam.CanonicalUserPrincipal(
+        cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId
+      ),
+    ],
+  })
+);
+```
+
+Create the CloudFront distribution with the OAI and bucket references:
+
+```ts
+const distribution = new cloudfront.CloudFrontWebDistribution(
+  this,
+  "SiteDistribution",
+  {
+    originConfigs: [
+      {
+        s3OriginSource: {
+          s3BucketSource: bucket,
+          originAccessIdentity: cloudfrontOAI,
+        },
+        behaviors: [
+          {
+            isDefaultBehavior: true,
+            compress: true,
+            allowedMethods:
+              cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
+          },
+        ],
+      },
+    ],
+  }
+);
+```
+
+BucketDeployment distribution config, this should be moved underneath the distribution
+definition since we must reference it:
+
+```ts
+new s3deploy.BucketDeployment(this, "DeployWithInvalidation", {
+  sources: [s3deploy.Source.asset("./site/output")],
+
+  // References the bucket defined above
+  destinationBucket: bucket,
+
+  // Don't retain objects in the bucket
+  retainOnDelete: false,
+
+  // References the CloudFront distrubution defined above
+  distribution,
+
+  // And all the paths in the bucket that should be distributed
+  distributionPaths: ["/*"],
+});
+```
+
+Print out the domain name for the distribution to the terminal:
+
+```ts
+new cdk.CfnOutput(this, "DistributionDomainName", {
+  value: distribution.domainName,
+});
+```
+
+Running `cdk deploy` again will deploy the CloudFront distribution and modify the
+permissions for the bucket. The distribution domain name should print out in the
+terminal, we can navigate to that domain in a browser.
+
+{% image "./site/img/hello-from-s3-cloudfront.png", "Hello from CloudFront!" %}
+
+See: [Link my domain with CloudFront using Route53](/posts/cloudfront-route53/)
