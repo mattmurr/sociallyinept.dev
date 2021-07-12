@@ -1,5 +1,7 @@
 const html = String.raw;
 
+const url = (page) => `"https://${page.url}"`;
+
 exports.render = function ({ content, page }) {
   return html`<!DOCTYPE html>
     <html lang="en">
@@ -11,7 +13,7 @@ exports.render = function ({ content, page }) {
           name="description"
           content="Blog about Software Engineering, Cloud, Unix and various other tech"
         />
-        <link rel="canonical" href="https://compti.me${page.url}" />
+        <link rel="canonical" href=${url(page)} />
         <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
         <link
           rel="apple-touch-icon"

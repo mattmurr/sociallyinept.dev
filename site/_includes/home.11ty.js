@@ -1,9 +1,5 @@
 const html = String.raw;
 
-exports.data = {
-  layout: "base",
-};
-
 const posts = (posts) => {
   return posts
     .map(
@@ -15,7 +11,12 @@ const posts = (posts) => {
     .join("\n");
 };
 
-exports.render = function ({ title, content, collections }) {
+exports.data = {
+  layout: "base",
+};
+
+// TODO Generate links from a data file
+exports.render = function ({ content, collections }) {
   return html` ${content}
     <h2>Links</h2>
     <ul>
