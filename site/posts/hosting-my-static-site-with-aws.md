@@ -3,7 +3,7 @@ title: Hosting my static site with AWS
 date: 2021-07-10
 ---
 
-## Part 1 - Setting up CDK and hosting with S3
+### Part 1 - Setting up CDK and hosting with S3
 
 Based on [aws-cdk-examples/static-site](https://github.com/aws-samples/aws-cdk-examples/blob/master/typescript/static-site/static-site.ts)
 
@@ -102,7 +102,7 @@ Accessed in the browser:
 
 {% image "./site/img/hello-from-s3.png", "Hello From S3!" %}
 
-## Part 2 - Setting up CloudFront
+### Part 2 - Setting up CloudFront
 
 Serving the site via a CloudFront distribution promises a variety of benefits ([CloudFront](https://aws.amazon.com/cloudfront/)).
 
