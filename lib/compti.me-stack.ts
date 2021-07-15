@@ -23,6 +23,8 @@ export class ComptiMeStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
 
       publicReadAccess: false,
+
+      autoDeleteObjects: true,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     });
 
