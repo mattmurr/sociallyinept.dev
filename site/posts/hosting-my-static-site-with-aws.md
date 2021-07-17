@@ -85,7 +85,8 @@ Create the directory for the static site assets as referenced in `s3deploy.Bucke
 
 1. Running `cdk synth` will generate the CloudFormation, great to spot any errors
    before attempting to deploy.
-2. We should also run `cdk bootstrap` as we are deploying assets to S3 ([Bootstrapping](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html)).
+2. Run `cdk bootstrap` as we are deploying assets to S3 ([Bootstrapping](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html)),
+   this should happen once per account/region.
 3. Finally `cdk deploy` deploys the stack and provisions the infrastructure in AWS.
 
 ```shell
@@ -94,11 +95,7 @@ cdk bootstrap
 cdk deploy
 ```
 
-The Public URL printed out in the terminal after `cdk deploy`:
-
-{% image "./site/img/bucket-url.png", "BucketURL" %}
-
-Accessed in the browser:
+The Public URL printed out in the terminal after `cdk deploy` accessible in the browser:
 
 {% image "./site/img/hello-from-s3.png", "Hello From S3!" %}
 
@@ -189,6 +186,5 @@ cdk synth
 cdk deploy
 ```
 
-On success, the CloudFront domain name should be printed to the terminal:
-
-{% image "./site/img/hello-from-s3-cloudfront.png", "Hello from CloudFront!" %}
+On success, the CloudFront domain name should be printed to the terminal, serving
+the same S3 contents when viewed in the browser.

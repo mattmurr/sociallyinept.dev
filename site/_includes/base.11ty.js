@@ -48,6 +48,14 @@ exports.render = function ({ content, page }) {
         img {
           height: auto;
         }
+        pre[class*="language-"] {
+          padding: 0.4em 0.6em;
+          margin: 1em 0;
+        }
+        code[class*="language-"],
+        pre[class*="language-"] {
+          font-size: 0.85em;
+        }
       </style>
       <body>
         <header>
