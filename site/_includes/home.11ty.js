@@ -2,6 +2,7 @@ const html = String.raw;
 
 const posts = (posts) => {
   return posts
+    .filter((post) => !post.data?.draft)
     .map(
       ({ data, url, date }) => html`<li>
         <a href="${this.url(url)}">${data.title}</a>
