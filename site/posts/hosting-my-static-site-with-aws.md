@@ -1,5 +1,6 @@
 ---
 title: Hosting my static site with AWS
+description: Hosting THIS blog using AWS CloudFront and S3 deployed via AWS CDK
 date: 2021-07-10
 ---
 
@@ -186,5 +187,5 @@ cdk synth
 cdk deploy
 ```
 
-On success, the CloudFront domain name should be printed to the terminal, serving
-the same S3 contents when viewed in the browser.
+On success, the CloudFront domain name is printed to the terminal, serving
+the same S3 contents from earlier in the browser.
