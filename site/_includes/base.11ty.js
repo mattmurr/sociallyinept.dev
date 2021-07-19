@@ -1,18 +1,20 @@
 const html = String.raw;
 
-const url = (page) => `"https://${page.url}"`;
+const defaultDescription =
+  "Blog about Software Engineering, Cloud, Unix and various other tech";
 
-exports.render = function ({ content, page }) {
+const url = (page) => `"https://${page.url}"`;
+const pageDescription = (description) =>
+  `"${description || defaultDescription}"`;
+
+exports.render = function ({ content, page, description }) {
   return html`<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>compti.me</title>
-        <meta
-          name="description"
-          content="Blog about Software Engineering, Cloud, Unix and various other tech"
-        />
+        <meta name="description" content=${pageDescription(description)} />
         <link rel="canonical" href=${url(page)} />
         <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
         <link
@@ -51,6 +53,9 @@ exports.render = function ({ content, page }) {
         pre[class*="language-"] {
           padding: 0.4em 0.6em;
           margin: 1em 0;
+        }
+        pre[class*="language-"] mark {
+          padding: 3px 0px;
         }
         code[class*="language-"],
         pre[class*="language-"] {
