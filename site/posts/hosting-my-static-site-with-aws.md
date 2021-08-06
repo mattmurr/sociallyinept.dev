@@ -115,7 +115,6 @@ More imports:
 ```ts
 // compti.me-stack.ts
 import * as cloudfront from "@aws-cdk/aws-cloudfront";
-import * as iam from "@aws-cdk/aws-iam";
 ```
 
 Modify the bucket to block read access and no longer configure the bucket as a
