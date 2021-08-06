@@ -4,9 +4,9 @@ description: Next.js hosted on AWS using Lambda@Edge and CDK
 date: 2021-07-18
 ---
 
-### Part 1 - Initial Next.js setup
+### Initial Next.js setup
 
-Create our project directory, initializing CDK and creating our next-app:
+Initializing CDK and creating our next-app:
 
 ```shell
 mkdir next-cms
@@ -15,11 +15,9 @@ cdk init --language=typescript
 npx create-next-app app
 ```
 
-So we can run our scripts easily in our project root:
+Make it easy to run scripts easily from the project root, modify `package.json`:
 
-```json/7,8
-// package.json
-
+```json
 "scripts": {
   "build": "tsc",
   "watch": "tsc -w",
@@ -33,9 +31,7 @@ So we can run our scripts easily in our project root:
 The default .gitignore is changed to not ignore the `.js` files in our Next.js
 `app/` directory:
 
-```gitignore/11
-# .gitignore
-
+```gitignore
 *.js
 !jest.config.js
 *.d.ts
@@ -48,7 +44,7 @@ cdk.out
 !app/**/*
 ```
 
-### Part 2 - SSR with CloudFront and Lambda@Edge
+### SSR with CloudFront and Lambda@Edge
 
 See: [serverless-nextjs/cdkconstruct](https://serverless-nextjs.com/docs/cdkconstruct/)
 
@@ -59,9 +55,7 @@ npm i -D @sls-next/cdk-construct @sls-next/lambda-at-edge
 `@sls-next/cdk-construct` provides everything needed to setup CloudFront, S3 (for
 static assets) and deploy the Next.js generated lambda functions to Lambda@Edge:
 
-```ts/3,9-19
-// lib/next-cms-stack.ts
-
+```ts
 import * as cdk from "@aws-cdk/core";
 import { NextJsLambdaEdge } from "@sls-next/cdk-construct";
 
@@ -69,13 +63,9 @@ export class NextCmsStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const { distribution } = new NextJSLambdaEdge(
-      this,
-      "NextApp",
-      {
-        serverlessBuildOutDir: "./app/out",
-      }
-    );
+    const { distribution } = new NextJSLambdaEdge(this, "NextApp", {
+      serverlessBuildOutDir: "./app/out",
+    });
 
     new cdk.CfnOutput(this, "Distribution URL", {
       value: distribution.domainName,
@@ -88,9 +78,7 @@ export class NextCmsStack extends cdk.Stack {
 make sure the region for this stack is us-east-1. ([Everything will be distributed
 to edge locations](https://github.com/serverless-nextjs/serverless-next.js/tree/master#my-lambda-is-deployed-to-us-east-1-how-can-i-deploy-it-to-another-region))
 
-```ts/6-12,15-18
-// bin/next-cms.ts
-
+```ts
 #!/usr/bin/env node
 import "source-map-support/register";
 import * as cdk from "@aws-cdk/core";
@@ -103,7 +91,7 @@ const builder = new Builder("./app", "./app/build", {
 
 builder.build().then(() => {
   const app = new cdk.App();
-    new NextCmsStack(app, "NextCmsStack", {
+  new NextCmsStack(app, "NextCmsStack", {
     env: {
       account: process.env.CDK_DEFAULT_ACCOUNT,
       // Everything is global and distributed to edge locations
