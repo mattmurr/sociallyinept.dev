@@ -4,17 +4,18 @@ const defaultDescription =
   "Blog about Software Engineering, Cloud, Unix and various other tech";
 
 const url = (page) => `"https://${page.url}"`;
-const pageDescription = (description) =>
-  `"${description || defaultDescription}"`;
 
-exports.render = function ({ content, page, description }) {
+exports.render = function ({ content, page, title, description }) {
   return html`<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>compti.me</title>
-        <meta name="description" content=${pageDescription(description)} />
+        <title>${title || "compti.me"}</title>
+        <meta
+          name="description"
+          content="${description || defaultDescription}"
+        />
         <link rel="canonical" href=${url(page)} />
         <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
         <link
@@ -56,10 +57,6 @@ exports.render = function ({ content, page, description }) {
         }
         pre[class*="language-"] mark {
           padding: 3px 0px;
-        }
-        code[class*="language-"],
-        pre[class*="language-"] {
-          font-size: 0.85em;
         }
       </style>
       <body>
