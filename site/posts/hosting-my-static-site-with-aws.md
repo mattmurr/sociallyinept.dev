@@ -25,8 +25,6 @@ npm i -D @aws-cdk/aws-s3 @aws-cdk/aws-s3-deployment
 ```
 
 ```ts
-// compti.me-stack.ts
-
 import * as s3 from "@aws-cdk/aws-s3";
 import * as s3deploy from "@aws-cdk/aws-s3-deployment";
 ```
@@ -35,47 +33,35 @@ Define the bucket and deployment within the constructor block, along with the pa
 to my static site assets
 
 ```ts
-// compti.me-stack.ts
+const bucket = new s3.Bucket(this, "Bucket", {
+  // Bucket name must be globally unique
+  bucketName: "compti.me",
 
-...
+  // Let the bucket know we want to serve a website using `index.html`
+  websiteIndexDocument: "index.html",
 
-export class ComptiMeStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+  // Bucket should be publicly readable or viewers will get 403 error code
+  publicReadAccess: true,
 
-    const bucket = new s3.Bucket(this, "Bucket", {
-      // Bucket name must be globally unique
-      bucketName: "compti.me",
+  // Remove all objects in the bucket when destroying the bucket
+  autoDeleteObjects: true,
+});
 
-      // Let the bucket know we want to serve a website using `index.html`
-      websiteIndexDocument: "index.html",
+new s3deploy.BucketDeployment(this, "BucketDeploy", {
+  // Source our site files from `./site` dir
+  sources: [s3deploy.Source.asset("./site")],
 
-      // Bucket should be publicly readable or viewers will get 403 error code
-      publicReadAccess: true,
+  // References the bucket defined above as the destination for our assets
+  destinationBucket: bucket,
+});
 
-      // Remove all objects in the bucket when destroying the bucket
-      autoDeleteObjects: true,
-    });
-
-    new s3deploy.BucketDeployment(this, "BucketDeploy", {
-      // Source our site files from `./site` dir
-      sources: [s3deploy.Source.asset("./site")],
-
-      // References the bucket defined above as the destination for our assets
-      destinationBucket: bucket,
-    });
-
-    // Print the publicly accessible bucket URL
-    new cdk.CfnOutput(this, "BucketURL", { value: bucket.bucketWebsiteUrl });
-  }
-}
+// Print the publicly accessible bucket URL
+new cdk.CfnOutput(this, "BucketURL", { value: bucket.bucketWebsiteUrl });
 ```
 
 Create the directory for the static site assets as referenced in `s3deploy.BucketDeployment`:
 
 ```html
-// site/index.html
-
 <!DOCTYPE html>
 <html>
   <body>
@@ -110,19 +96,15 @@ The following modules define CloudFront constructors:
 npm i -D @aws-cdk/aws-cloudfront @aws-cdk/aws-cloudfront-origins
 ```
 
-More imports:
-
 ```ts
-// compti.me-stack.ts
 import * as cloudfront from "@aws-cdk/aws-cloudfront";
+import * as origins from "@aws-cdk/aws-cloudfront-origins";
 ```
 
 Modify the bucket to block read access and no longer configure the bucket as a
 web server:
 
 ```ts
-// compti.me-stack.ts
-
 const bucket = new s3.Bucket(this, "Bucket", {
   // Bucket name must be globally unique
   bucketName: "compti.me",
@@ -136,33 +118,23 @@ Define a CloudFront distribution with an S3Origin, (redirecting all HTTP traffic
 to HTTPS):
 
 ```ts
-// compti.me-stack.ts
+const distribution = new cloudfront.Distribution(this, "SiteDistribution", {
+  defaultBehavior: {
+    origin: new origins.S3Origin(bucket),
+    viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+  },
+  defaultRootObject: "index.html",
+});
 
-constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-  super(scope, id, props);
-
-  ...
-
-  const distribution = new cloudfront.Distribution(this, "SiteDistribution", {
-    defaultBehavior: {
-      origin: new origins.S3Origin(bucket),
-      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-    },
-    defaultRootObject: "index.html",
-  });
-
-  // Print out the distribution domainName
-  new cdk.CfnOutput(this, "DistributionDomainName", {
-    value: distribution.domainName,
-  });
-}
+// Print out the distribution domainName
+new cdk.CfnOutput(this, "DistributionDomainName", {
+  value: distribution.domainName,
+});
 ```
 
 Add invalidation to our BucketDeployment so that the cache may be rebuilt:
 
 ```ts
-// compti.me-stack.ts
-
 new s3deploy.BucketDeployment(this, "BucketDeployWithInvalidation", {
   // Source our site files from `./site` dir
   sources: [s3deploy.Source.asset("./site")],
