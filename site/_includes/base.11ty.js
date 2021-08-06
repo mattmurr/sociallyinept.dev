@@ -49,6 +49,9 @@ exports.render = function ({ content, page, title, description }) {
       </head>
       <style>
         img {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
           height: auto;
         }
         pre[class*="language-"] {
