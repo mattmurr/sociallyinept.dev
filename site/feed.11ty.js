@@ -14,7 +14,7 @@ exports.data = {
 };
 
 exports.render = async function ({ metadata, collections }) {
-  const posts = collections.post.filter((post) => !post?.draft);
+  const posts = collections.post.filter((post) => !post?.draft).reverse();
   const items = await Promise.all(
     posts.map(async ({ url, data, templateContent, date }) => {
       const absolutePostUrl = this.absoluteUrl(this.url(url));
