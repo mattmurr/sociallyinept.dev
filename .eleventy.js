@@ -31,6 +31,12 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(pluginRss);
 
+  [
+    "dateToRfc3339",
+    "absoluteUrl",
+    "convertHtmlToAbsoluteUrls",
+  ].forEach((method) => eleventyConfig.addFilter(method, pluginRss[method]));
+
   eleventyConfig.addFilter("postDate", (date) =>
     DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED)
   );
