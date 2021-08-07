@@ -5,7 +5,7 @@ title: compti.me
 
 ## About
 
-I'm Matt, I graduated from a [data engineering bootcamp](https://generation.uk)
+I'm Matt, I graduated from a [data engineering bootcamp](https://uk.generation.org)
 and now work for a tech consultancy in the UK. I love ThinkPads, Linux and
 obtaining new knowledge about anything tech.
 
