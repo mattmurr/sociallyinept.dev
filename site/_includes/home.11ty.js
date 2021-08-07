@@ -19,13 +19,6 @@ exports.data = {
 // TODO Generate links from a data file
 exports.render = function ({ content, collections }) {
   return html` ${content}
-    <h2>Links</h2>
-    <ul>
-      <li><a href="https://github.com/mattmurr">GitHub</a></li>
-      <li><a href="https://twitter.com/mattmurr__">Twitter</a></li>
-      <li><a href="https://github.com/mattmurr/compti.me">Source</a></li>
-      <li><a href="mailto:mattmurr.uk@gmail.com">Mail</a></li>
-    </ul>
 
     <h2>Posts</h2>
     <ul>
