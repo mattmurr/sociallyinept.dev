@@ -15,3 +15,5 @@ cdk.out
 site/output/
 
 cdk.context.json
+
+.DS_Store

@@ -7,12 +7,18 @@ async function imageShortcode(src, alt) {
   const sizes = "(min-width: 1024px), 100vw, 50vw";
   const metadata = await Image(src, {
     widths: [600, 900, 1500],
-    formats: ["webp", "jpeg"],
+    formats: ["webp", "png"],
     urlPath: "/img/",
     outputDir: "site/output/img/",
     sharpWebpOptions: {
       nearLossless: true,
     },
+    filenameFormat: (_, src, width, format, _) => {
+      const ext = path.extname(src);
+      const name = path.basename(src, ext);
+
+      return `${name}-${width}w.${format}`;
+    }
   });
 
   const imageAttributes = {
