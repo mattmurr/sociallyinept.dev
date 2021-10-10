@@ -1,5 +1,5 @@
 ---
-title: My new M1 MacBook Air
+title: M1 MacBook Air
 description: Jumping on the Apple silicon hype-train with a MacBook Air
 date: 2021-09-11
 ---
@@ -23,11 +23,11 @@ Nix-darwin is essentially an extension to Nix for MacOS, completely optional, I 
 
 ## Docker
 
-Apple Silicon has native support for Docker, but Nix doesn't have a way to run the Docker daemon. It's easy enough to download and install the application in the *regular* fashion. I'm trying to have a reproducible system that has a near completely automated setup. The Docker Foundation recently announced changes to business T&C, in turn, bringing to light some alternatives. 
+Apple Silicon has native support for Docker, but Nix doesn't have a way to run the Docker daemon. It's easy enough to download and install the application in the *regular* fashion. However, I'm trying to have a completely reproducible system that has a near fully-automated setup. The Docker Foundation recently announced changes to business subscriptions, in turn, bringing to light some alternatives. 
 
 ### [Podman](https://docs.podman.io/en/latest/index.html)
 
-I did have to install homebrew manually, but I've just dropped the lines into my `setup.sh` script. Note that on Apple Silicon, Homebrew defaults to `/opt/homebrew/` rather than the usual `/usr/local/`. Upon running `darwin-rebuild switch`, the patched QEMU and Podman are installed via `brew bundle` and available to use on my system.
+I did have to install `brew` manually, but I've just dropped the lines into my `setup.sh` script. Note that on Apple Silicon, Homebrew defaults to `/opt/homebrew/` rather than the usual `/usr/local/`. Upon running `darwin-rebuild switch`, the patched QEMU and Podman are installed via `brew bundle` and available to use on my system.
 
 ```nix
 homebrew = {
@@ -61,3 +61,5 @@ podman run hello
 Podman configures and starts a QEMU VM running Fedora CoreOS, fetches the `hello` image from Docker Hub, and runs the container inside the VM. Not much different from the way that Docker works in non-Linux operating systems. 
 
 Since Podman has a very similar CLI to Docker's CLI, It's common to create an alias. I added the `alias docker='podman'` to my `programs.zsh.interactiveShellInit`.
+
+I must say, it works pretty well.

@@ -23,3 +23,5 @@ pass -c $PASSFILE 1>/dev/null
 ### Keyboard shortcut
 
 Although initially sceptical due to the terrible name, [iCanHazShortcut](https://github.com/deseven/iCanHazShortcut) lets you map shortcuts to shell commands. In my case, <kbd>Command</kbd> + <kbd>P</kbd> runs `alacritty -e sh -c '~/bin/fzf-passmenu'`, launches a Terminal window with my script running. As part of my newfound Nix adventure, I'd like to turn this script into a package.
+
+Hopefully, I don't across any problems with this setup.
