@@ -2,7 +2,6 @@
 title: My new M1 MacBook Air
 description: Jumping on the Apple silicon hype-train with a MacBook Air
 date: 2021-09-11
-draft: true
 ---
 
 I've been wanting to jump on the Apple Silicon hype-train ever since reading/watching reviews of how efficient and performant these <abbr title="System on a chip">SoC</abbr>s are. I planned on waiting for the next generation of MacBooks (rumored to be M1X or M2) but succumbed to tech consumerism earlier than expected. 
