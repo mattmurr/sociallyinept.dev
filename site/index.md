@@ -5,12 +5,7 @@ title: compti.me
 
 ## About
 
-I'm Matt, I graduated from a [data engineering bootcamp](https://uk.generation.org)
-and now work for a tech consultancy in the UK. I love ThinkPads, Linux and
-obtaining new knowledge about anything tech.
-
-This is my blog where I note and post about Software Engineering, Cloud,
-Unix and various other tech.
+I'm Matt, I graduated from a [Data Engineering bootcamp](https://uk.generation.org) and now work for a tech consultancy in the UK. You are on my blog where I note and post about Software Engineering, Cloud, Unix, and more.
 
 ## Links
 

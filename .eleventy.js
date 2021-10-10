@@ -12,12 +12,6 @@ async function imageShortcode(src, alt) {
     outputDir: "site/output/img/",
     sharpWebpOptions: {
       nearLossless: true,
-    },
-    filenameFormat: (_, src, width, format, _) => {
-      const ext = path.extname(src);
-      const name = path.basename(src, ext);
-
-      return `${name}-${width}w.${format}`;
     }
   });
 

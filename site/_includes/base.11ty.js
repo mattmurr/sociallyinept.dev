@@ -3,7 +3,7 @@ const html = String.raw;
 const defaultDescription =
   "Blog about Software Engineering, Cloud, Unix and various other tech";
 
-const url = (page) => `"https://${page.url}"`;
+const url = (page) => `"https://compti.me${page.url}"`;
 
 exports.render = function ({ content, page, title, description }) {
   return html`<!DOCTYPE html>
@@ -57,6 +57,7 @@ exports.render = function ({ content, page, title, description }) {
         pre[class*="language-"] {
           padding: 0.4em 0.6em;
           margin: 1em 0;
+          font-size: .9em;
         }
         pre[class*="language-"] mark {
           padding: 3px 0px;
