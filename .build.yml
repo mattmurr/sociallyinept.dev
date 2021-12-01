@@ -11,7 +11,7 @@ tasks:
       npm ci
       npm run build
   - package: |
-      cd $site/output
-      tar -cvz > ../site.tar.gz
+      cd $site
+      tar -C output -cvz . > ../site.tar.gz
   - upload: |
       acurl -f https://pages.sr.ht/publish/$site -Fcontent=@site.tar.gz
