@@ -37,7 +37,7 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter("postDate", (date) =>
-    DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_SHORT)
+    DateTime.fromJSDate(date).setLocale("en-GB").toLocaleString(DateTime.DATE_SHORT)
   );
 
   eleventyConfig.addLiquidShortcode("image", imageShortcode);
