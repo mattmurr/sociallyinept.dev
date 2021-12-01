@@ -3,6 +3,7 @@ const html = String.raw;
 const posts = (posts) => {
   if (posts.len < 1) return []
   return posts.filter((post) => !post.data?.draft)
+    .sort((a, b) => b.date - a.date)
     .map(
       ({ data, url, date }) => html`<li>
         ${this.postDate(date)}
