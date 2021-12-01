@@ -1,23 +1,13 @@
 exports.data = {
   permalink: "feed.json",
   eleventyExcludeFromCollections: true,
-  metadata: {
-    title: "compti.me",
-    subtitle:
-      "Blog about Software Engineering, Cloud, Unix and various other tech",
-    url: "https://compti.me",
-    feedUrl: "https://compti.me/feed.xml",
-    author: {
-      name: "Matthew Murray",
-    },
-  },
 };
 
-exports.render = async function ({ metadata, collections }) {
-  const posts = collections.post.filter((post) => !post?.draft).reverse();
+exports.render = async function ({ site, collections }) {
+  const posts = collections.post?.filter((post) => !post?.draft).reverse() || []
   const items = await Promise.all(
     posts.map(async ({ url, data, templateContent, date }) => {
-      const absolutePostUrl = this.absoluteUrl(this.url(url));
+      const absolutePostUrl = this.absoluteUrl(this.url(url), site.url)
       const absolutePostHtml = this.convertHtmlToAbsoluteUrls(
         templateContent,
         absolutePostUrl
@@ -34,14 +24,14 @@ exports.render = async function ({ metadata, collections }) {
 
   const data = {
     version: "https://jsonfeed.org/version/1.1",
-    title: metadata.title,
-    home_page_url: metadata.url,
-    feed_url: metadata.feedUrl,
-    description: metadata.subtitle,
+    title: site.title,
+    home_page_url: site.url,
+    feed_url: site.url + "/feed.json",
+    description: site.desc,
     authors: [
       {
-        name: metadata.author.name,
-        url: metadata.url,
+        name: site.author,
+        url: site.url,
       },
     ],
     items,

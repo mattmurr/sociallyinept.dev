@@ -1,20 +1,7 @@
-*.js
-!.eleventy.js
-!site/**/*.js
-!functions/*.js
-!jest.config.js
-*.d.ts
-node_modules
-!.eslintrc.js
-
-# CDK asset staging directory
-.cdk.staging
-cdk.out
-
 # Eleventy output
-site/output/
+output/
 
-cdk.context.json
+node_modules
 
 .DS_Store
 .vscode/

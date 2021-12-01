@@ -9,7 +9,7 @@ async function imageShortcode(src, alt) {
     widths: [600, 900, 1500],
     formats: ["webp", "png"],
     urlPath: "/img/",
-    outputDir: "site/output/img/",
+    outputDir: "output/img/",
     sharpWebpOptions: {
       nearLossless: true,
     }
@@ -36,7 +36,7 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter("postDate", (date) =>
-    DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED)
+    DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_SHORT)
   );
 
   eleventyConfig.addLiquidShortcode("image", imageShortcode);
@@ -46,7 +46,7 @@ module.exports = function (eleventyConfig) {
   return {
     dir: {
       input: "site",
-      output: "site/output",
+      output: "output",
     },
   };
 };
