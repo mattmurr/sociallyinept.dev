@@ -11,7 +11,6 @@ module.exports = function() {
       mastodon: getEnv("SITE_MASTODON"),
       sourcehut: getEnv("SITE_SOURCEHUT"),
       keyoxide: getEnv("SITE_KEYOXIDE"),
-      kofi: getEnv("SITE_KOFI"),
     }
   }
 }
