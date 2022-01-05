@@ -4,10 +4,11 @@ exports.data = {
 };
 
 exports.render = async function ({ site, collections }) {
-  const posts = collections.post?.filter((post) => !post?.draft).reverse() || []
+  const posts =
+    collections.post?.filter((post) => !post?.draft).reverse() || [];
   const items = await Promise.all(
     posts.map(async ({ url, data, templateContent, date }) => {
-      const absolutePostUrl = this.absoluteUrl(this.url(url), site.url)
+      const absolutePostUrl = this.absoluteUrl(this.url(url), site.url);
       const absolutePostHtml = this.convertHtmlToAbsoluteUrls(
         templateContent,
         absolutePostUrl

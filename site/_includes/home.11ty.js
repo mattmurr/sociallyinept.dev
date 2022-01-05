@@ -1,8 +1,9 @@
 const html = String.raw;
 
 const posts = (posts) => {
-  if (posts.len < 1) return []
-  return posts.filter((post) => !post.data?.draft)
+  if (posts.len < 1) return [];
+  return posts
+    .filter((post) => !post.data?.draft)
     .sort((a, b) => b.date - a.date)
     .map(
       ({ data, url, date }) => html`<li>
@@ -19,10 +20,10 @@ exports.data = {
 
 exports.render = function ({ content, collections }) {
   return html`${content}
-  <section class="posts">
-    <h2>Posts</h2>
-    <ul>
-      ${posts(collections.post)}
-    </ul>
-  </section>`;
+    <section class="posts">
+      <h2>Posts</h2>
+      <ul>
+        ${posts(collections.post)}
+      </ul>
+    </section>`;
 };
