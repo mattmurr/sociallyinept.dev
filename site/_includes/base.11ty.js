@@ -25,17 +25,16 @@ exports.render = function ({ site, content, page, title, description }) {
         <link rel="stylesheet" href="/assets/main.css" />
       </head>
       <body>
-        <div class="container">
-          <header>
-            <h1><a href="/">thickrocks</a></h1>
-            <div>
-              <a href="mailto:${site.social.email}">Email</a>
-              <a href="${site.social.mastodon}">Mastodon</a>
-              <a href="${site.social.sourcehut}">sourcehut</a>
-            </div>
-          </header>
-          <main>${content}</main>
-        </div>
+        <header>
+          <h1><a href="/">thickrocks</a></h1>
+          <div>
+            <a href="mailto:${site.social.email}">Email</a>
+            <a href="https://matrix.to/#/${site.social.matrix}">Matrix</a>
+            <a href="${site.social.mastodon}">Mastodon</a>
+            <a href="${site.social.github}">GitHub</a>
+          </div>
+        </header>
+        <main>${content}</main>
         <footer>
           <a href="${site.social.keyoxide}">Keyoxide</a>
         </footer>

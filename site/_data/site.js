@@ -8,8 +8,9 @@ module.exports = function() {
     author: getEnv("SITE_AUTHOR"),
     social: {
       email: getEnv("SITE_CONTACT_EMAIL"),
+      matrix: getEnv("SITE_MATRIX"),
       mastodon: getEnv("SITE_MASTODON"),
-      sourcehut: getEnv("SITE_SOURCEHUT"),
+      github: getEnv("SITE_GITHUB"),
       keyoxide: getEnv("SITE_KEYOXIDE"),
     }
   }
