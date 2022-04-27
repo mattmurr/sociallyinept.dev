@@ -68,7 +68,7 @@ export class SiteStack extends Stack {
     });
 
     new BucketDeployment(this, "DeploymentWithInvalidation", {
-      sources: [Source.asset("../output")],
+      sources: [Source.asset("./output")],
       destinationBucket: bucket,
       distribution,
       distributionPaths: ["/*"],
