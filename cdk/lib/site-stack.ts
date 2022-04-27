@@ -6,6 +6,8 @@ import {
   AllowedMethods,
   ViewerProtocolPolicy,
   OriginAccessIdentity,
+  FunctionCode,
+  FunctionEventType,
 } from "aws-cdk-lib/aws-cloudfront";
 import { HostedZone, ARecord, RecordTarget } from "aws-cdk-lib/aws-route53";
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
@@ -13,6 +15,7 @@ import { CloudFrontTarget } from "aws-cdk-lib/aws-route53-targets";
 import { DnsValidatedCertificate } from "aws-cdk-lib/aws-certificatemanager";
 import { Source, BucketDeployment } from "aws-cdk-lib/aws-s3-deployment";
 import { CanonicalUserPrincipal, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { Function } from "aws-cdk-lib/aws-cloudfront";
 
 export interface SiteStackProps extends StackProps {
   env: object;
@@ -37,17 +40,33 @@ export class SiteStack extends Stack {
       autoDeleteObjects: true,
     });
 
-    bucket.addToResourcePolicy(new PolicyStatement({
-      actions: ['s3:GetObject'],
-      resources: [bucket.arnForObjects('*')],
-      principals: [new CanonicalUserPrincipal(cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId)]
-    }));
+    bucket.addToResourcePolicy(
+      new PolicyStatement({
+        actions: ["s3:GetObject"],
+        resources: [bucket.arnForObjects("*")],
+        principals: [
+          new CanonicalUserPrincipal(
+            cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId
+          ),
+        ],
+      })
+    );
 
     const certificate = new DnsValidatedCertificate(this, "SiteCertificate", {
       domainName: props.domainName,
       hostedZone: zone,
       region: "us-east-1",
     });
+
+    const urlRewriteFunction = new Function(
+      this,
+      "UrlRewriteIndexHtmlFunction",
+      {
+        code: FunctionCode.fromFile({
+          filePath: "./functions/url-rewrite-index-html.js",
+        }),
+      }
+    );
 
     const distribution = new Distribution(this, "Distribution", {
       certificate,
@@ -58,6 +77,12 @@ export class SiteStack extends Stack {
         compress: true,
         allowedMethods: AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        functionAssociations: [
+          {
+            function: urlRewriteFunction,
+            eventType: FunctionEventType.VIEWER_REQUEST,
+          },
+        ],
       },
     });
 
