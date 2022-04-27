@@ -17,7 +17,12 @@ export class PipelineStack extends Stack {
         input: CodePipelineSource.connection("mattmurr/thick.rocks", "master", {
           connectionArn: `arn:aws:codestar-connections:eu-west-2:${this.account}:connection/a94c4c50-f461-4d32-bdbb-e33329b79fc3`,
         }),
-        commands: ["npm ci", "npm run build", "npm run synth"],
+        commands: [
+          "npm set unsafe-perm true",
+          "npm ci",
+          "npm run build",
+          "npm run synth",
+        ],
         primaryOutputDirectory: "cdk/cdk.out",
       }),
     });
