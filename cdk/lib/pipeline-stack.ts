@@ -22,8 +22,6 @@ export class PipelineStack extends Stack {
       }),
     });
 
-    pipeline.addStage(
-      new SiteStage(this, "Stage", props)
-    );
+    pipeline.addStage(new SiteStage(this, "Stage", props));
   }
 }

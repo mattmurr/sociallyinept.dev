@@ -2,6 +2,7 @@
   "name": "thick.rocks",
   "version": "0.1.0",
   "scripts": {
+    "postinstall": "cd cdk && npm ci",
     "dev": "npx eleventy --serve",
     "build": "npx eleventy",
     "synth": "cd cdk && npx cdk synth"
