@@ -7,6 +7,7 @@ import {
 import { SiteStage } from "./site-stage";
 import { Stack } from "aws-cdk-lib";
 import { SiteStackProps } from "./site-stack";
+import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 
 export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: SiteStackProps) {
@@ -24,6 +25,13 @@ export class PipelineStack extends Stack {
           "npm run synth",
         ],
         primaryOutputDirectory: "cdk/cdk.out",
+        rolePolicyStatements: [
+          new PolicyStatement({
+            actions: ["route53:ListHostedZonesByName"],
+            resources: ["*"],
+            effect: Effect.ALLOW,
+          }),
+        ],
       }),
     });
 

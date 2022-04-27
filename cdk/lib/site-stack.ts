@@ -12,6 +12,7 @@ import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { CloudFrontTarget } from "aws-cdk-lib/aws-route53-targets";
 import { DnsValidatedCertificate } from "aws-cdk-lib/aws-certificatemanager";
 import { Source, BucketDeployment } from "aws-cdk-lib/aws-s3-deployment";
+import { CanonicalUserPrincipal, PolicyStatement } from "aws-cdk-lib/aws-iam";
 
 export interface SiteStackProps extends StackProps {
   env: object;
@@ -35,6 +36,12 @@ export class SiteStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
     });
+
+    bucket.addToResourcePolicy(new PolicyStatement({
+      actions: ['s3:GetObject'],
+      resources: [bucket.arnForObjects('*')],
+      principals: [new CanonicalUserPrincipal(cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId)]
+    }));
 
     const certificate = new DnsValidatedCertificate(this, "SiteCertificate", {
       domainName: props.domainName,
