@@ -10,6 +10,6 @@ exports.render = ({ site, title, page, content }) => {
     ${content}
   </article>
   <div class="discuss">
-    <a href="mailto:${site.social.email}?subject=${title}">Start a discussion</a>
+    <a href="https://twitter.com/intent/tweet?text=Hey @${site.social.twitter}, ${title}">Start a discussion</a>
   </div>`;
 };

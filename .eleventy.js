@@ -43,7 +43,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addLiquidShortcode("image", imageShortcode);
 
   eleventyConfig.addPassthroughCopy("site/assets");
-  eleventyConfig.addPassthroughCopy({"site/well-known": ".well-known"});
 
   return {
     dir: {
