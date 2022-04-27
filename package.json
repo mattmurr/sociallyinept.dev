@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "npx eleventy --serve",
     "build": "npx eleventy",
-    "synth:build": "cd cdk && npx cdk synth"
+    "synth": "cd cdk && npx cdk synth"
   },
   "devDependencies": {
     "@11ty/eleventy": "^1.0.1",

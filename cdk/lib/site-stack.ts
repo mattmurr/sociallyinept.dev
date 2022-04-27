@@ -1,10 +1,5 @@
-import { Stack, RemovalPolicy, CfnOutput } from "aws-cdk-lib";
+import { Stack, RemovalPolicy, CfnOutput, StackProps } from "aws-cdk-lib";
 import { Construct } from "constructs";
-import {
-  CodeBuildStep,
-  CodePipeline,
-  CodePipelineSource,
-} from "aws-cdk-lib/pipelines";
 import { Bucket, BlockPublicAccess } from "aws-cdk-lib/aws-s3";
 import {
   Distribution,
@@ -18,13 +13,13 @@ import { CloudFrontTarget } from "aws-cdk-lib/aws-route53-targets";
 import { DnsValidatedCertificate } from "aws-cdk-lib/aws-certificatemanager";
 import { Source, BucketDeployment } from "aws-cdk-lib/aws-s3-deployment";
 
-export interface Props {
-  env: object,
+export interface SiteStackProps extends StackProps {
+  env: object;
   domainName: string;
 }
 
-export class CdkStack extends Stack {
-  constructor(scope: Construct, id: string, props: Props) {
+export class SiteStack extends Stack {
+  constructor(scope: Construct, id: string, props: SiteStackProps) {
     super(scope, id, props);
 
     const zone = HostedZone.fromLookup(this, "Zone", {
@@ -70,15 +65,6 @@ export class CdkStack extends Stack {
       destinationBucket: bucket,
       distribution,
       distributionPaths: ["/*"],
-    });
-
-    new CodePipeline(this, "Pipeline", {
-      synth: new CodeBuildStep("Synth", {
-        input: CodePipelineSource.connection("mattmurr/thick.rocks", "master", {
-          connectionArn: `arn:aws:codestar-connections:eu-west-2:${this.account}:connection/a94c4c50-f461-4d32-bdbb-e33329b79fc3`,
-        }),
-        commands: ["npm ci", "npm run build", "npm run synth"],
-      }),
     });
   }
 }
