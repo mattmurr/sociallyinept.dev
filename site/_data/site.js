@@ -8,10 +8,8 @@ module.exports = function() {
     author: getEnv("SITE_AUTHOR"),
     social: {
       email: getEnv("SITE_CONTACT_EMAIL"),
-      discord: getEnv("SITE_DISCORD"),
       twitter: getEnv("SITE_TWITTER"),
       github: getEnv("SITE_GITHUB"),
-      keyoxide: getEnv("SITE_KEYOXIDE"),
     }
   }
 }

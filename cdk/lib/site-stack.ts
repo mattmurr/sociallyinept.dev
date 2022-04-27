@@ -33,7 +33,7 @@ export class SiteStack extends Stack {
 
     new CfnOutput(this, "Site", { value: "https://" + props.domainName });
 
-    const bucket = new Bucket(this, "SiteBucket", {
+    const bucket = new Bucket(this, "Bucket", {
       publicReadAccess: false,
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
       removalPolicy: RemovalPolicy.DESTROY,
@@ -52,7 +52,7 @@ export class SiteStack extends Stack {
       })
     );
 
-    const certificate = new DnsValidatedCertificate(this, "SiteCertificate", {
+    const certificate = new DnsValidatedCertificate(this, "Certificate", {
       domainName: props.domainName,
       hostedZone: zone,
       region: "us-east-1",

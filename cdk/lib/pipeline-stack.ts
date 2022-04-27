@@ -19,11 +19,14 @@ export class PipelineStack extends Stack {
           connectionArn: `arn:aws:codestar-connections:eu-west-2:${this.account}:connection/a94c4c50-f461-4d32-bdbb-e33329b79fc3`,
         }),
         commands: [
+          // Fixes an issue with npm postinstall
           "npm set unsafe-perm true",
+
           "npm ci",
           "npm run build",
           "npm run synth",
         ],
+        // By default, expects to already be in the cdk project directory
         primaryOutputDirectory: "cdk/cdk.out",
         rolePolicyStatements: [
           new PolicyStatement({
@@ -35,6 +38,6 @@ export class PipelineStack extends Stack {
       }),
     });
 
-    pipeline.addStage(new SiteStage(this, "Stage", props));
+    pipeline.addStage(new SiteStage(this, "ThickRocksStage", props));
   }
 }

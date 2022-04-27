@@ -8,6 +8,6 @@ export class SiteStage extends Stage {
     constructor(scope: Construct, id: string, props: SiteStackProps) {
       super(scope, id, props);
   
-      new SiteStack(this, 'SiteStack', props);
+      new SiteStack(this, 'ThickRocksStack', props);
     }
 }

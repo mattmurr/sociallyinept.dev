@@ -30,14 +30,13 @@ exports.render = function ({ site, content, page, title, description }) {
           <h1><a href="/">thickrocks</a></h1>
           <div>
             <a href="mailto:${site.social.email}">Email</a>
-            <a href="https://discordapp.com/channels/@me/${site.social.discord}">Discord</a>
             <a href="https://twitter.com/${site.social.twitter}">Twitter</a>
             <a href="https://github.com/${site.social.github}">GitHub</a>
           </div>
         </header>
         <main>${content}</main>
         <footer>
-          <a href="https://keyoxide.org/${site.social.keyoxide}">Keyoxide</a>
+          &copy; 2021-${new Date().getFullYear()} Matthew Murray
         </footer>
       </body>
     </html>`;
