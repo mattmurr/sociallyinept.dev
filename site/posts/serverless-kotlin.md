@@ -170,16 +170,9 @@ class ApplicationRequestHandler : RequestHandler<APIGatewayProxyRequestEvent, AP
 
 </details>
 
-I will start working on the CDK stack, treading towards the MVP. From within the
-CDK project directory, the following node modules need to be installed into the
-project:
-
-```shell
-npm i @aws-cdk/aws-lambda @aws-cdk/aws-apigateway
-```
-
-We should be able to just start defining the stack (, I recommend checking out
-the CDK [docs](https://docs.aws.amazon.com/cdk/api/v2/) if you have not already,
+I will start working on the CDK stack, treading towards the MVP. We should be
+able to just start defining the stack (, I recommend checking out the CDK
+[docs](https://docs.aws.amazon.com/cdk/api/v2/) if you have not already,
 cross-referencing with the examples in
 [this GitHub repo](https://github.com/aws-samples/aws-cdk-examples)). CDK is
 really quick to get started with, and the boilerplate is already generated, we
