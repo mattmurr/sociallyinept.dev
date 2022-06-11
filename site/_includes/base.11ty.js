@@ -27,7 +27,7 @@ exports.render = function ({ site, content, page, title, description }) {
       </head>
       <body>
         <header>
-          <h1><a href="/">thickrocks</a></h1>
+          <h1><a href="/">thick rocks</a></h1>
           <div>
             <a href="mailto:${site.social.email}">Email</a>
             <a href="https://twitter.com/${site.social.twitter}">Twitter</a>
