@@ -2,14 +2,12 @@
   "name": "sociallyinept.dev",
   "version": "0.1.0",
   "scripts": {
-    "postinstall": "cd cdk && npm ci",
-    "dev": "npx eleventy --serve",
-    "build": "npx eleventy",
-    "synth": "cd cdk && npx cdk synth"
+    "dev": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.1",
-    "@11ty/eleventy-img": "^0.9.0",
+    "@11ty/eleventy": "^1.0.2",
+    "@11ty/eleventy-img": "^2.0.1",
     "@11ty/eleventy-plugin-rss": "^1.1.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.1",
     "prettier": "^2.3.2"
