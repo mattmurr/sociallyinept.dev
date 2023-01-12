@@ -42,5 +42,5 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addLiquidShortcode("image", imageShortcode);
 
-  eleventyConfig.addPassthroughCopy("site/assets");
+  eleventyConfig.addPassthroughCopy("assets");
 };
