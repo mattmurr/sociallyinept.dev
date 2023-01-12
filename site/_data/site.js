@@ -8,7 +8,7 @@ module.exports = function() {
     author: getEnv("SITE_AUTHOR"),
     social: {
       email: getEnv("SITE_CONTACT_EMAIL"),
-      twitter: getEnv("SITE_TWITTER"),
+      social: getEnv("SITE_SOCIAL"),
       github: getEnv("SITE_GITHUB"),
     }
   }

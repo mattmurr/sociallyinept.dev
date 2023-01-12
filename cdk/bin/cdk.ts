@@ -4,7 +4,7 @@ import { App } from "aws-cdk-lib";
 import { PipelineStack } from "../lib/pipeline-stack";
 
 const app = new App();
-const domainName = "thick.rocks";
+const domainName = "sociallyinept.dev";
 
 new PipelineStack(app, "ThickRocksPipelineStack", {
   description: `CodePipeline for ${domainName}`,

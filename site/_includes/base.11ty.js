@@ -9,7 +9,7 @@ exports.render = function ({ site, content, page, title, description }) {
         <title>${title}</title>
         <meta name="description" content="${description || site.desc}" />
         <link rel="canonical" href=${site.url + page.url} />
-        <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+        <link href="https://unpkg.com/prismjs@1.29.0/themes/prism-okaidia.css" rel="stylesheet">
         <link
           rel="icon"
           type="image/png"
@@ -27,10 +27,9 @@ exports.render = function ({ site, content, page, title, description }) {
       </head>
       <body>
         <header>
-          <h1><a href="/">thick rocks</a></h1>
+          <h1><a href="/">sociallyinept.dev</a></h1>
           <div>
             <a href="mailto:${site.social.email}">Email</a>
-            <a href="https://twitter.com/${site.social.twitter}">Twitter</a>
             <a href="https://github.com/${site.social.github}">GitHub</a>
           </div>
         </header>

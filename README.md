@@ -1,1 +1,1 @@
-# [Blog](https://thick.rocks)
+# [URL](https://sociallyinept.dev)

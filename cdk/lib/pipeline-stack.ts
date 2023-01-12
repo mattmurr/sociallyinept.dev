@@ -15,7 +15,7 @@ export class PipelineStack extends Stack {
 
     const pipeline = new CodePipeline(this, "Pipeline", {
       synth: new CodeBuildStep("Synth", {
-        input: CodePipelineSource.connection("mattmurr/thick.rocks", "master", {
+        input: CodePipelineSource.connection("mattmurr/sociallyinept.dev", "master", {
           connectionArn: `arn:aws:codestar-connections:eu-west-2:${this.account}:connection/a94c4c50-f461-4d32-bdbb-e33329b79fc3`,
         }),
         commands: [

@@ -1,6 +1,7 @@
 ---
 layout: home
-title: thick.rocks
+title: sociallyinept.dev
 ---
 
-Hey I'm Matt. This is my blog where I write about Software Engineering, Unix, and more.
+Hey I'm Matt, an introverted software development consultant in the UK. This is
+my blog where I write about most things tech.

@@ -1,5 +1,5 @@
 {
-  "name": "thick.rocks",
+  "name": "sociallyinept.dev",
   "version": "0.1.0",
   "scripts": {
     "postinstall": "cd cdk && npm ci",
