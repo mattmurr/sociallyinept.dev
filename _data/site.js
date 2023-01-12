@@ -1,4 +1,4 @@
-const getEnv = require("../../utils.js").getEnv
+const getEnv = require("../utils.js").getEnv
 
 module.exports = function() {
   return {

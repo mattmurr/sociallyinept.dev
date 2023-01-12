@@ -43,11 +43,4 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addLiquidShortcode("image", imageShortcode);
 
   eleventyConfig.addPassthroughCopy("site/assets");
-
-  return {
-    dir: {
-      input: "site",
-      output: "output",
-    },
-  };
 };
