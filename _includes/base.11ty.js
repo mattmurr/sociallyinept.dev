@@ -1,6 +1,6 @@
 const html = String.raw;
 
-exports.render = function ({ site, content, page, title, description }) {
+exports.render = function({ site, content, page, title, description }) {
   return html`<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -9,7 +9,15 @@ exports.render = function ({ site, content, page, title, description }) {
         <title>${title}</title>
         <meta name="description" content="${description || site.desc}" />
         <link rel="canonical" href=${site.url + page.url} />
-        <link href="https://unpkg.com/prismjs@1.29.0/themes/prism-okaidia.css" rel="stylesheet">
+        <link
+          href="https://unpkg.com/prismjs@1.29.0/themes/prism-okaidia.css"
+          rel="stylesheet"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/assets/apple-touch-icon.png"
+        />
         <link
           rel="icon"
           type="image/png"
@@ -23,6 +31,9 @@ exports.render = function ({ site, content, page, title, description }) {
           href="/assets/favicon-16x16.png"
         />
         <link rel="manifest" href="/assets/site.webmanifest" />
+        <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
         <link rel="stylesheet" href="/assets/main.css" />
       </head>
       <body>
@@ -34,9 +45,7 @@ exports.render = function ({ site, content, page, title, description }) {
           </div>
         </header>
         <main>${content}</main>
-        <footer>
-          &copy; 2021-${new Date().getFullYear()} Matthew Murray
-        </footer>
+        <footer>&copy; 2021-${new Date().getFullYear()} Matthew Murray</footer>
       </body>
     </html>`;
 };
