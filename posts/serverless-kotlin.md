@@ -498,4 +498,4 @@ GraalVM.
 
 **Edit**: AWS has introduced a new feature called
 [SnapStart](https://aws.amazon.com/blogs/compute/reducing-java-cold-starts-on-aws-lambda-functions-with-snapstart/)
-to improve cold starts for Lambda, so that follow up post I speak of above, will compare GraalVM to SnapStart.
+to improve cold starts for Lambda.

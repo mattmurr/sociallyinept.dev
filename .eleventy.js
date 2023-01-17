@@ -8,9 +8,9 @@ async function imageShortcode(src, alt) {
   const sizes = "(min-width: 1024px), 100vw, 50vw";
   const metadata = await Image(src, {
     widths: [600, 900, 1500],
-    formats: ["webp", "png"],
+    formats: ["webp", "png", "jpeg"],
     urlPath: "/img/",
-    outputDir: "output/img/",
+    outputDir: "_site/img/",
     sharpWebpOptions: {
       nearLossless: true,
     }
