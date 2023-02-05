@@ -12,7 +12,7 @@ export default (req: Request) => {
   return new Response(null, {
     status: 302,
     headers: {
-      Location: `${AUTH_URL}?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${process.env.URL}${REDIRECT_PATH}`,
+      Location: `${AUTH_URL}?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=https://${process.env.VERCEL_URL}${REDIRECT_PATH}`,
     },
   });
 };
