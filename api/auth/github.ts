@@ -16,10 +16,10 @@ export default (req: Request) => {
     //);
   //}
 
-  return {
-    statusCode: 302,
+  return new Response(null, {
+    status: 302,
     headers: {
       Location: `${AUTH_URL}?client_id=${process.env["GITHUB_CLIENT_ID"]}&redirect_uri=${process.env.URL}${REDIRECT_PATH}`,
     },
-  };
+  });
 };
