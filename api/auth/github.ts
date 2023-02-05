@@ -3,23 +3,24 @@ export const config = {
   regions: ["lhr1"],
 };
 
-const AUTH_URL = "https://github.com/login/oauth/authorize";
-const REDIRECT_PATH = "/api/auth/callback/github";
-//const CLIENT_ID_KEY = "GITHUB_CLIENT_ID";
-//const CLIENT_SECRET_KEY = "GITHUB_CLIENT_SECRET";
 
 // Redirect to GitHub auth
 export default (req: Request) => {
-  //if (!process.env.hasOwnProperty("GITHUB_CLIENT_ID") || !process.env.hasOwnProperty("GITHUB_CLIENT_SECRET")) {
-    //throw new Error(
-      //"GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET environment variables are required."
-    //);
-  //}
+  const AUTH_URL = "https://github.com/login/oauth/authorize";
+  const REDIRECT_PATH = "/api/auth/callback/github";
+
+  const CLIENT_ID_KEY = "GITHUB_CLIENT_ID";
+
+  if (!process.env.hasOwnProperty(CLIENT_ID_KEY)) {
+    throw new Error(
+      "GITHUB_CLIENT_ID environment variable is required."
+    );
+  }
 
   return new Response(null, {
     status: 302,
     headers: {
-      Location: `${AUTH_URL}?client_id=${process.env["GITHUB_CLIENT_ID"]}&redirect_uri=${process.env.URL}${REDIRECT_PATH}`,
+      Location: `${AUTH_URL}?client_id=${process.env[CLIENT_ID_KEY]}&redirect_uri=${process.env.URL}${REDIRECT_PATH}`,
     },
   });
 };
